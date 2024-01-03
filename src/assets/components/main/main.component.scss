@@ -1,0 +1,10 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+mat-toolbar {
+  width: auto;
+  /* Additional styling for the navbar */
+}
