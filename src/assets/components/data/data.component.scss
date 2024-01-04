@@ -1,0 +1,13 @@
+:host{
+  padding: 1rem;
+}
+
+.content {
+  display: flex;
+  justify-content: space-between;
+}
+
+app-trainees-table {
+  flex-grow: 1;
+  margin-right: 20px;
+}

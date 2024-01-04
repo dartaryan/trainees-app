@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { traineesData } from '../trainees/data.mock';
 import { Trainee } from '../trainees/trainee.interface';
@@ -13,4 +13,11 @@ import { Trainee } from '../trainees/trainee.interface';
 export class TraineesTableComponent {
     displayedColumns: string[] = ['id', 'name', 'date', 'grade', 'subject'];
     traineesData: Trainee[] = traineesData
+
+    @Output() rowClicked = new EventEmitter<Trainee>();
+
+    onRowClick(trainee: Trainee): void {
+        console.log("onRowClick",trainee)
+        this.rowClicked.emit(trainee);
+    }
 }

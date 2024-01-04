@@ -1,0 +1,8 @@
+.trainee-row {
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.trainee-row:hover {
+  background-color: gray;
+}

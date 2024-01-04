@@ -1,2 +1,8 @@
 <app-action-toolbar></app-action-toolbar>
-<app-trainees-table></app-trainees-table>
+
+
+<div class="content">
+    <app-trainees-table (rowClicked)="onTraineeSelected($event)"></app-trainees-table>
+    <app-trainee-details [trainee]="selectedTrainee"></app-trainee-details>
+</div>
+

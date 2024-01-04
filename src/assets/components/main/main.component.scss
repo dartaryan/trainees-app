@@ -1,10 +1,13 @@
 :host {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  width: 80%;
+  background-color: #292929;
+  padding-bottom: 1rem;
+  border-radius: 1rem;
 }
 
 mat-toolbar {
-  width: auto;
-  /* Additional styling for the navbar */
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
 }
