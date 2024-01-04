@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { ActionToolbarComponent } from './action-toolbar/action-toolbar.component';
 import { TraineesTableComponent } from './trainees-table/trainees-table.component';
@@ -12,11 +12,15 @@ import { Trainee } from './trainees/trainee.interface';
     templateUrl: './data.component.html',
     styleUrl: './data.component.scss'
 })
-export class DataComponent {
+export class DataComponent implements OnInit {
     selectedTrainee: Trainee | null = null
 
+    constructor() {}
+
+    ngOnInit() {
+    }
+
     onTraineeSelected(trainee: Trainee): void {
-        console.log("onTraineeSelected",trainee)
         this.selectedTrainee = trainee;
     }
 }

@@ -1,23 +1,29 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
-import { traineesData } from '../trainees/data.mock';
 import { Trainee } from '../trainees/trainee.interface';
+import { TraineeDataService } from '../trainee-data.service';
+import { AsyncPipe, DatePipe, NgIf } from '@angular/common';
+import { Observable, of } from 'rxjs';
 
 @Component({
     selector: 'app-trainees-table',
     standalone: true,
-    imports: [MatTableModule],
+    imports: [MatTableModule, AsyncPipe, NgIf, DatePipe],
     templateUrl: './trainees-table.component.html',
     styleUrl: './trainees-table.component.scss'
 })
-export class TraineesTableComponent {
+export class TraineesTableComponent implements OnInit {
     displayedColumns: string[] = ['id', 'name', 'date', 'grade', 'subject'];
-    traineesData: Trainee[] = traineesData
-
+    trainees$: Observable<Trainee[]> = of([])
     @Output() rowClicked = new EventEmitter<Trainee>();
 
+    constructor(private traineeDataService: TraineeDataService) {}
+
+    ngOnInit(): void {
+        this.trainees$ = this.traineeDataService.trainees$;
+    }
+
     onRowClick(trainee: Trainee): void {
-        console.log("onRowClick",trainee)
         this.rowClicked.emit(trainee);
     }
 }

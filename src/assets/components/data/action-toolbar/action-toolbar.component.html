@@ -2,12 +2,14 @@
     <form>
         <mat-form-field class="filter-input">
             <mat-label>Filter</mat-label>
-            <input matInput placeholder="ID..." value="ID">
+            <input type="text" matInput placeholder="Filter (e.g., 'Id: 1')" id="fieldFilter" name="fieldFilter"
+                   #fieldFilter
+                   (input)="applyFilter(fieldFilter.value)">
         </mat-form-field>
     </form>
     <div class="action-buttons">
-    <button mat-raised-button color="primary">Add</button>
-    <button mat-raised-button color="warn">Remove</button>
+        <button mat-raised-button color="primary">Add</button>
+        <button mat-raised-button color="warn">Remove</button>
     </div>
 </div>
 
