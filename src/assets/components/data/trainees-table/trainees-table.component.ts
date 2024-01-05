@@ -1,30 +1,41 @@
-import { Component, OnInit } from '@angular/core';
-import { MatTableModule } from '@angular/material/table';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { Trainee } from '../trainees/trainee.interface';
 import { TraineeDataService } from '../trainee-data.service';
 import { AsyncPipe, DatePipe, NgIf } from '@angular/common';
-import { Observable, of } from 'rxjs';
 
 @Component({
     selector: 'app-trainees-table',
     standalone: true,
-    imports: [MatTableModule, AsyncPipe, NgIf, DatePipe],
+    imports: [MatTableModule, MatPaginatorModule, AsyncPipe, NgIf, DatePipe],
     templateUrl: './trainees-table.component.html',
     styleUrl: './trainees-table.component.scss'
 })
 export class TraineesTableComponent implements OnInit {
-    displayedColumns: string[] = ['id', 'name', 'date', 'grade', 'subject'];
-    trainees$: Observable<Trainee[]> = of([])
-    selectedTrainee: Trainee | null = null;
+    public displayedColumns: string[] = ['id', 'name', 'date', 'grade', 'subject'];
+    public dataSource = new MatTableDataSource<Trainee>([]);
+    public selectedTrainee: Trainee | null = null;
 
     constructor(private traineeDataService: TraineeDataService) {}
 
+    private _paginator!: MatPaginator;
+    @ViewChild(MatPaginator) set paginator(value: MatPaginator) {
+        if (value) {
+            this._paginator = value;
+            this.dataSource.paginator = this._paginator;
+        }
+    }
+
     ngOnInit(): void {
-        this.trainees$ = this.traineeDataService.trainees$;
+        this.traineeDataService.trainees$.subscribe(trainees => {
+            this.dataSource.data = trainees;
+            this.paginator && this.paginator.firstPage();
+        });
     }
 
     onSelect(trainee: Trainee): void {
-        this.selectedTrainee = this.selectedTrainee === trainee ? null : trainee
+        this.selectedTrainee = this.selectedTrainee === trainee ? null : trainee;
         this.traineeDataService.selectTrainee(this.selectedTrainee);
     }
 }

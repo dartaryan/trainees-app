@@ -1,3 +1,25 @@
+.table-body-scroll {
+  max-height: calc(100vh - 25em);
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 1rem;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: rgba(83, 83, 83, 0.37);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: darkcyan;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #00c5c5;
+  }
+}
+
+
 .trainee-row {
   cursor: pointer;
   transition: background-color 0.3s ease;
@@ -29,4 +51,11 @@
   max-width: 50%;
   height: auto;
   margin-bottom: 16px;
+}
+
+mat-paginator {
+  background-color: darkcyan; /* Blue-gray background */
+  //color: #424242; /* Pink text color */
+  font-weight: 500;
+  font-size: small;
 }
