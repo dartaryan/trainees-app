@@ -1,4 +1,4 @@
-:host{
+:host {
   padding: 1rem;
 }
 
@@ -7,10 +7,13 @@
   justify-content: space-between;
 }
 
-app-trainees-table {
+.table-section {
   flex: 1 0 0;
   margin-right: 2rem;
 }
+
 app-trainee-details {
-  flex: 0 0 25%;
+  display: flex;
+  align-items: center;
+  padding-top: 2rem;
 }

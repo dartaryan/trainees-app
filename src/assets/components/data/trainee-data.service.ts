@@ -13,7 +13,8 @@ export class TraineeDataService {
     public trainees$ = this.traineesSubject.asObservable();
     private selectedTraineeSubject = new BehaviorSubject<Trainee | null>(null);
     public selectedTrainee$ = this.selectedTraineeSubject.asObservable();
-
+    private isEditModeSubject = new BehaviorSubject<boolean>(false);
+    public isEditMode$ = this.isEditModeSubject.asObservable();
 
     constructor(private filteringService: TraineeFilteringService) { }
 
@@ -28,6 +29,19 @@ export class TraineeDataService {
 
     selectTrainee(trainee: Trainee | null): void {
         this.selectedTraineeSubject.next(trainee);
+    }
+
+    updateTrainee(updatedTrainee: Trainee): void {
+        const index = this.trainees.findIndex(t => t.id === updatedTrainee.id);
+        if (index !== -1) {
+            this.trainees[index] = updatedTrainee;
+        }
+        this.traineesSubject.next([...this.trainees]);
+        this.selectedTraineeSubject.next(updatedTrainee);
+    }
+
+    setEditMode(isEditMode: boolean): void {
+        this.isEditModeSubject.next(isEditMode);
     }
 
 }

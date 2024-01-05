@@ -6,9 +6,12 @@
 .trainee-row:hover {
   background-color: gray;
 }
-
 .selected {
   background-color: darkcyan;
+}
+
+.selected:hover {
+  background-color: mix(gray, darkcyan, 70%);
 }
 
 .no-results-content {

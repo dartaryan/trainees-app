@@ -1,7 +1,7 @@
-<button mat-icon-button color="accent" *ngIf="!isEditMode" (click)="onEditClick()">
+<button mat-icon-button color="accent" *ngIf="!(isEditMode$ | async)" (click)="onEditClick()">
     <mat-icon>edit</mat-icon>
 </button>
-<ng-container *ngIf="isEditMode">
+<ng-container *ngIf="isEditMode$ | async">
     <button mat-mini-fab color="primary" (click)="onSaveClick()">
         <mat-icon>save</mat-icon>
     </button>
