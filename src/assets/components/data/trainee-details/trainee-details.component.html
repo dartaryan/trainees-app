@@ -1,48 +1,59 @@
-<mat-card *ngIf="selectedTrainee$ | async as trainee">
+<mat-card>
     <mat-card-header>
         <h2>Trainee Details</h2>
     </mat-card-header>
-    <mat-card-content >
+    <mat-card-content>
+        <div *ngIf="selectedTrainee$  | async as trainee; else noTraineeSelected">
+            <div class="details-fields">
+                <h4>ID</h4>
+                <p>{{ trainee?.id }}</p>
+            </div>
+            <div class="details-fields">
+                <h4>Name</h4>
+                <p>{{ trainee?.name }}</p>
+            </div>
+            <div class="details-fields">
+                <h4>Date</h4>
+                <p>{{ trainee?.date }}</p>
+            </div>
+            <div class="details-fields">
+                <h4>Grade</h4>
+                <p>{{ trainee?.grade }}</p>
+            </div>
+            <div class="details-fields">
+                <h4>Subject</h4>
+                <p>{{ trainee?.subject }}</p>
+            </div>
+            <div class="details-fields">
+                <h4>Email</h4>
+                <p>{{ trainee?.email }}</p>
+            </div>
+            <div class="details-fields">
+                <h4>Address</h4>
+                <p>{{ trainee?.address }}</p>
+            </div>
+            <div class="details-fields">
+                <h4>City</h4>
+                <p>{{ trainee?.city }}</p>
+            </div>
+            <div class="details-fields">
+                <h4>Country</h4>
+                <p>{{ trainee?.country }}</p>
+            </div>
+            <div class="details-fields">
+                <h4>Zip</h4>
+                <p>{{ trainee?.zip }}</p>
+            </div>
+        </div>
+        <ng-template #noTraineeSelected>
 
-        <div class="details-fields">
-            <h4>ID</h4>
-            <p>{{ trainee?.id }}</p>
-        </div>
-        <div class="details-fields">
-            <h4>Name</h4>
-            <p>{{ trainee?.name }}</p>
-        </div>
-        <div class="details-fields">
-            <h4>Date</h4>
-            <p>{{ trainee?.date }}</p>
-        </div>
-        <div class="details-fields">
-            <h4>Grade</h4>
-            <p>{{ trainee?.grade }}</p>
-        </div>
-        <div class="details-fields">
-            <h4>Subject</h4>
-            <p>{{ trainee?.subject }}</p>
-        </div>
-        <div class="details-fields">
-            <h4>Email</h4>
-            <p>{{ trainee?.email }}</p>
-        </div>
-        <div class="details-fields">
-            <h4>Address</h4>
-            <p>{{ trainee?.address }}</p>
-        </div>
-        <div class="details-fields">
-            <h4>City</h4>
-            <p>{{ trainee?.city }}</p>
-        </div>
-        <div class="details-fields">
-            <h4>Country</h4>
-            <p>{{ trainee?.country }}</p>
-        </div>
-        <div class="details-fields">
-            <h4>Zip</h4>
-            <p>{{ trainee?.zip }}</p>
-        </div>
+            <mat-card-footer>
+                <div class="no-trainee-content">
+                    <img src="assets/graphics/trainee-studying-girl.svg" alt="">
+                    <p>Select a trainee to get started.</p>
+                </div>
+            </mat-card-footer>
+        </ng-template>
+
     </mat-card-content>
 </mat-card>

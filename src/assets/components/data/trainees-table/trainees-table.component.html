@@ -1,5 +1,5 @@
-<ng-container *ngIf="trainees$ | async as trainees">
-    <table mat-table [dataSource]="trainees" class="mat-elevation-z8">
+<ng-container *ngIf="trainees$ | async as trainees; else noResults">
+    <table *ngIf="trainees.length > 0; else noResults" mat-table [dataSource]="trainees" class="mat-elevation-z8">
         <!-- ID Column -->
         <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef> ID</th>
@@ -35,3 +35,10 @@
             [class.selected]="row === selectedTrainee"></tr>
     </table>
 </ng-container>
+
+<ng-template #noResults>
+    <div class="no-results-content">
+        <img src="assets/graphics/typing.svg" alt="No results"/>
+        <p>Oops! No trainees found. Try adjusting your filter.</p>
+    </div>
+</ng-template>

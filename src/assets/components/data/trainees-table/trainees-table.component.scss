@@ -10,3 +10,20 @@
 .selected {
   background-color: darkcyan;
 }
+
+.no-results-content {
+  background-color: #424242;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  font-size: 1.2rem;
+}
+
+.no-results-content img {
+  max-width: 50%;
+  height: auto;
+  margin-bottom: 16px;
+}
