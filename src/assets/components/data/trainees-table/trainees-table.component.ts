@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { Trainee } from '../trainees/trainee.interface';
 import { TraineeDataService } from '../trainee-data.service';
@@ -15,7 +15,7 @@ import { Observable, of } from 'rxjs';
 export class TraineesTableComponent implements OnInit {
     displayedColumns: string[] = ['id', 'name', 'date', 'grade', 'subject'];
     trainees$: Observable<Trainee[]> = of([])
-    @Output() rowClicked = new EventEmitter<Trainee>();
+    selectedTrainee: Trainee | null = null;
 
     constructor(private traineeDataService: TraineeDataService) {}
 
@@ -23,7 +23,8 @@ export class TraineesTableComponent implements OnInit {
         this.trainees$ = this.traineeDataService.trainees$;
     }
 
-    onRowClick(trainee: Trainee): void {
-        this.rowClicked.emit(trainee);
+    onSelect(trainee: Trainee): void {
+        this.selectedTrainee = this.selectedTrainee === trainee ? null : trainee
+        this.traineeDataService.selectTrainee(this.selectedTrainee);
     }
 }

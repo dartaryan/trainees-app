@@ -11,6 +11,9 @@ export class TraineeDataService {
     private trainees: Trainee[] = traineesData
     private traineesSubject = new BehaviorSubject<Trainee[]>(this.trainees);
     public trainees$ = this.traineesSubject.asObservable();
+    private selectedTraineeSubject = new BehaviorSubject<Trainee | null>(null);
+    public selectedTrainee$ = this.selectedTraineeSubject.asObservable();
+
 
     constructor(private filteringService: TraineeFilteringService) { }
 
@@ -23,6 +26,8 @@ export class TraineeDataService {
         }
     }
 
-
+    selectTrainee(trainee: Trainee | null): void {
+        this.selectedTraineeSubject.next(trainee);
+    }
 
 }

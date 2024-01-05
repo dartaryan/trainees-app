@@ -31,6 +31,7 @@
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr class="trainee-row" mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onRowClick(row)"></tr>
+        <tr class="trainee-row" mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onSelect(row)"
+            [class.selected]="row === selectedTrainee"></tr>
     </table>
 </ng-container>

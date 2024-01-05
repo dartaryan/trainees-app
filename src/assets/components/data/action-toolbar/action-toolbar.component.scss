@@ -1,11 +1,5 @@
-
-.toolbar {
+:host {
   display: flex;
   justify-content: space-between;
 }
 
-.action-buttons{
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}

@@ -1,8 +1,8 @@
-<mat-card>
+<mat-card *ngIf="selectedTrainee$ | async as trainee">
     <mat-card-header>
         <h2>Trainee Details</h2>
     </mat-card-header>
-    <mat-card-content>
+    <mat-card-content >
 
         <div class="details-fields">
             <h4>ID</h4>

@@ -1,0 +1,11 @@
+<button mat-icon-button color="accent" *ngIf="!isEditMode" (click)="onEditClick()">
+    <mat-icon>edit</mat-icon>
+</button>
+<ng-container *ngIf="isEditMode">
+    <button mat-mini-fab color="primary" (click)="onSaveClick()">
+        <mat-icon>save</mat-icon>
+    </button>
+    <button mat-mini-fab color="warn" (click)="onCancelClick()">
+        <mat-icon>cancel</mat-icon>
+    </button>
+</ng-container>
