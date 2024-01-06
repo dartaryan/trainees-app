@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { AsyncPipe, NgIf } from '@angular/common';
@@ -13,6 +13,7 @@ import { TraineeDataService } from '../../trainee-data.service';
 })
 export class DetailsToolbarComponent {
     isEditMode$ = this.traineeDataService.isEditMode$;
+    @Input() isDisabled: boolean = false;
     @Output() edit = new EventEmitter<void>();
     @Output() save = new EventEmitter<void>();
     @Output() cancel = new EventEmitter<void>();
@@ -25,7 +26,6 @@ export class DetailsToolbarComponent {
     }
 
     onSaveClick(): void {
-        this.traineeDataService.setEditMode(false)
         this.save.emit();
     }
 

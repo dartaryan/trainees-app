@@ -13,6 +13,7 @@ import { AsyncPipe, DatePipe, NgIf } from '@angular/common';
     styleUrl: './trainees-table.component.scss'
 })
 export class TraineesTableComponent implements OnInit {
+    isEditMode: boolean = false;
     public displayedColumns: string[] = ['id', 'name', 'date', 'grade', 'subject'];
     public dataSource = new MatTableDataSource<Trainee>([]);
     public selectedTrainee: Trainee | null = null;
@@ -20,6 +21,7 @@ export class TraineesTableComponent implements OnInit {
     constructor(private traineeDataService: TraineeDataService) {}
 
     private _paginator!: MatPaginator;
+
     @ViewChild(MatPaginator) set paginator(value: MatPaginator) {
         if (value) {
             this._paginator = value;
@@ -32,10 +34,14 @@ export class TraineesTableComponent implements OnInit {
             this.dataSource.data = trainees;
             this.paginator && this.paginator.firstPage();
         });
+        this.traineeDataService.selectedTrainee$.subscribe(selectedTrainee => this.selectedTrainee = selectedTrainee)
+        this.traineeDataService.isEditMode$.subscribe((editMode => this.isEditMode = editMode))
     }
 
     onSelect(trainee: Trainee): void {
-        this.selectedTrainee = this.selectedTrainee === trainee ? null : trainee;
-        this.traineeDataService.selectTrainee(this.selectedTrainee);
+        if (!this.isEditMode) {
+            this.selectedTrainee = this.selectedTrainee === trainee ? null : trainee;
+            this.traineeDataService.selectTrainee(this.selectedTrainee);
+        }
     }
 }

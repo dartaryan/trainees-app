@@ -2,7 +2,6 @@ mat-card {
   max-height: calc(100vh - 25em);
   overflow-y: auto;
 
-  /* Custom scrollbar styles */
   &::-webkit-scrollbar {
     width: 1rem;
   }
@@ -55,3 +54,13 @@ mat-card {
   height: 100%;
   text-align: center;
 }
+
+
+.error-msg {
+  margin-left: 1.8rem;
+  background-color: rgb(66, 66, 66) !important;
+padding: 0 1.5rem;
+  border-radius: 0.3rem;
+  margin-top: -3rem;
+}
+

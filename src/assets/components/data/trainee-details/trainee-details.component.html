@@ -1,17 +1,28 @@
 <mat-card>
     <div class="card-header">
         <h2>Trainee Details</h2>
-        <app-details-toolbar (cancel)="onCancelClick()" (edit)="onEditClick()" (save)="onSaveClick()"
-                             *ngIf="selectedTrainee$ | async"></app-details-toolbar>
+        <app-details-toolbar [isDisabled]="traineeForm.invalid"
+                             (cancel)="onCancelClick()"
+                             (edit)="onEditClick()"
+                             (save)="onSaveClick()"
+                             *ngIf="selectedTrainee"></app-details-toolbar>
     </div>
     <mat-card-content *ngIf="traineeForm">
-        <form [formGroup]="traineeForm" *ngIf="selectedTrainee$ | async; else noTraineeSelected">
+        <form [formGroup]="traineeForm" *ngIf="selectedTrainee; else noTraineeSelected">
             <div class="details-fields" *ngFor="let field of traineeFields">
                 <h4 *ngIf="!isEditMode">{{ field.label }}</h4>
                 <p *ngIf="!isEditMode">{{ traineeForm.get(field.name)?.value }}</p>
-                <mat-form-field appearance="outline" *ngIf="isEditMode">
+                <mat-form-field appearance="outline" *ngIf="isEditMode" [formGroup]="traineeForm">
                     <mat-label>{{ field.label | titlecase }}</mat-label>
                     <input matInput [formControlName]="field.name">
+                    <mat-error class="error-msg"
+                               *ngIf="field.name === 'id' && traineeForm.get('id')?.touched && traineeForm.get('id')?.errors?.['invalidId']">
+                        ID cannot be zero or left blank.
+                    </mat-error>
+                    <mat-error class="error-msg"
+                               *ngIf="field.name === 'id' && traineeForm.get('id')?.touched && traineeForm.get('id')?.errors?.['nonNumeric']">
+                        ID must be a number.
+                    </mat-error>
                 </mat-form-field>
             </div>
         </form>

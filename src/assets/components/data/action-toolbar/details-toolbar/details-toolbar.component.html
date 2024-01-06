@@ -2,10 +2,10 @@
     <mat-icon>edit</mat-icon>
 </button>
 <ng-container *ngIf="isEditMode$ | async">
-    <button mat-mini-fab color="primary" (click)="onSaveClick()">
+    <button mat-icon-button color="primary" (click)="onSaveClick()" [disabled]="isDisabled">
         <mat-icon>save</mat-icon>
     </button>
-    <button mat-mini-fab color="warn" (click)="onCancelClick()">
+    <button mat-icon-button color="warn" (click)="onCancelClick()">
         <mat-icon>cancel</mat-icon>
     </button>
 </ng-container>

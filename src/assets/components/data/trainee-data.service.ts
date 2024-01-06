@@ -31,17 +31,42 @@ export class TraineeDataService {
         this.selectedTraineeSubject.next(trainee);
     }
 
-    updateTrainee(updatedTrainee: Trainee): void {
-        const index = this.trainees.findIndex(t => t.id === updatedTrainee.id);
-        if (index !== -1) {
-            this.trainees[index] = updatedTrainee;
+    updateTrainee(updatedTrainee: Trainee, oldTraineeId: number | null): void {
+        if (oldTraineeId && oldTraineeId !== updatedTrainee.id) {
+            this.trainees = [updatedTrainee, ...this.trainees];
+            this.removeTrainee(oldTraineeId);
+        } else {
+            const index = this.trainees.findIndex(t => t.id === updatedTrainee.id);
+            if (index !== -1) {
+                this.trainees[index] = updatedTrainee;
+            } else {
+                this.trainees = [updatedTrainee, ...this.trainees];
+            }
+            this.removeTrainee(0);
         }
+
         this.traineesSubject.next([...this.trainees]);
-        this.selectedTraineeSubject.next(updatedTrainee);
     }
 
     setEditMode(isEditMode: boolean): void {
         this.isEditModeSubject.next(isEditMode);
     }
 
+    addTrainee(newTrainee: Trainee): void {
+        this.trainees = [newTrainee, ...this.trainees];
+        this.traineesSubject.next(this.trainees);
+    }
+
+    removeTrainee(traineeId: number): void {
+        this.trainees = this.trainees.filter(t => t.id !== traineeId);
+        this.traineesSubject.next(this.trainees);
+        if (this.selectedTraineeSubject.value?.id === traineeId) {
+            this.selectedTraineeSubject.next(null);
+        }
+    }
+
+    getTraineeById(id: number, originalId: number | null): Trainee | undefined {
+        const typedId = Number(id)
+        return this.trainees.find(trainee => {return (trainee.id === typedId) && typedId !== originalId});
+    }
 }

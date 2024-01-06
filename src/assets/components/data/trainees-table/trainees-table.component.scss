@@ -19,7 +19,6 @@
   }
 }
 
-
 .trainee-row {
   cursor: pointer;
   transition: background-color 0.3s ease;
@@ -28,12 +27,39 @@
 .trainee-row:hover {
   background-color: gray;
 }
+
 .selected {
   background-color: darkcyan;
 }
 
 .selected:hover {
   background-color: mix(gray, darkcyan, 70%);
+}
+
+.disabled-row {
+  pointer-events: none;
+  opacity: 0.2;
+}
+
+.blinking-row {
+  animation: blink-animation 1.2s infinite;
+}
+
+@keyframes blink-animation {
+  0% {
+    background-color: darkcyan;
+  }
+  50% {
+    background-color: rgba(128, 128, 128, 0.49);
+  }
+  100% {
+    background-color: darkcyan;
+  }
+}
+
+.disabled-paginator {
+  pointer-events: none;
+  color: rgba(0, 0, 0, 0.38);
 }
 
 .no-results-content {
@@ -54,8 +80,8 @@
 }
 
 mat-paginator {
-  background-color: darkcyan; /* Blue-gray background */
-  //color: #424242; /* Pink text color */
+  background-color: #006262;
+
   font-weight: 500;
   font-size: small;
 }
