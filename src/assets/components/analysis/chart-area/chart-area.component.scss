@@ -1,0 +1,17 @@
+.container {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.chart {
+  width: calc(50% - 10px);
+  margin: 5px;
+  padding: 10px;
+  box-sizing: border-box;
+  cursor: grab;
+}
+
+.chart:nth-child(3) {
+  width: 100%;
+}

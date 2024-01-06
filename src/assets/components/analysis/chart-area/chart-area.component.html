@@ -1,0 +1,11 @@
+<div cdkDropList class="container" (cdkDropListDropped)="drop($event)">
+    <div *ngFor="let chart of charts; let i = index" class="chart" cdkDrag>
+        <div *ngIf="i !== 2">
+            <canvasjs-chart [styles]="chart.styles"  [options]="chart.options"></canvasjs-chart>
+        </div>
+        <div *ngIf="i === 2">
+            <canvasjs-chart [styles]="hiddenChartStyles" [options]="hiddenChartOptions"></canvasjs-chart>
+        </div>
+    </div>
+</div>
+

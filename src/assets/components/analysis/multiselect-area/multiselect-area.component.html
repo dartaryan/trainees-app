@@ -1,0 +1,14 @@
+<mat-form-field>
+    <mat-label>Trainee IDs</mat-label>
+    <mat-select multiple [(value)]="currentSelectedIds" (selectionChange)="onIdSelectionChange($event)">
+        <mat-option *ngFor="let id of traineeIds" [value]="id">{{ id }}</mat-option>
+    </mat-select>
+</mat-form-field>
+
+<mat-form-field>
+    <mat-label>Subjects</mat-label>
+    <mat-select multiple [(value)]="currentSelectedSubjects" (selectionChange)="onSubjectSelectionChange($event)">
+        <mat-option *ngFor="let subject of subjects" [value]="subject">{{ subject }}</mat-option>
+    </mat-select>
+</mat-form-field>
+

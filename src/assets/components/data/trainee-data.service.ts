@@ -69,4 +69,13 @@ export class TraineeDataService {
         const typedId = Number(id)
         return this.trainees.find(trainee => {return (trainee.id === typedId) && typedId !== originalId});
     }
+
+    getUniqueIds(): number[] {
+        return Array.from(new Set(this.trainees.map(trainee => trainee.id)));
+    }
+
+    getUniqueSubjects(): string[] {
+        return Array.from(new Set(this.trainees.map(trainee => trainee.subject)));
+    }
+
 }
