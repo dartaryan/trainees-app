@@ -31,20 +31,17 @@ export class TraineeDataService {
         this.selectedTraineeSubject.next(trainee);
     }
 
-    updateTrainee(updatedTrainee: Trainee, oldTraineeId: number | null): void {
-        if (oldTraineeId && oldTraineeId !== updatedTrainee.id) {
+    updateTrainee(updatedTrainee: Trainee): void {
+        if (updatedTrainee.serialNumber === 0) {
+            updatedTrainee.serialNumber = this.generateSerialNumber();
             this.trainees = [updatedTrainee, ...this.trainees];
-            this.removeTrainee(oldTraineeId);
+            this.removeTrainee(0)
         } else {
-            const index = this.trainees.findIndex(t => t.id === updatedTrainee.id);
+            const index = this.trainees.findIndex(t => t.serialNumber === updatedTrainee.serialNumber);
             if (index !== -1) {
                 this.trainees[index] = updatedTrainee;
-            } else {
-                this.trainees = [updatedTrainee, ...this.trainees];
             }
-            this.removeTrainee(0);
         }
-
         this.traineesSubject.next([...this.trainees]);
     }
 
@@ -55,27 +52,20 @@ export class TraineeDataService {
     addTrainee(newTrainee: Trainee): void {
         this.trainees = [newTrainee, ...this.trainees];
         this.traineesSubject.next(this.trainees);
+        this.selectTrainee(newTrainee)
     }
 
-    removeTrainee(traineeId: number): void {
-        this.trainees = this.trainees.filter(t => t.id !== traineeId);
+    removeTrainee(serialNumber: number): void {
+        this.trainees = this.trainees.filter(t => t.serialNumber !== serialNumber);
         this.traineesSubject.next(this.trainees);
-        if (this.selectedTraineeSubject.value?.id === traineeId) {
-            this.selectedTraineeSubject.next(null);
-        }
+        this.selectTrainee(null)
     }
 
-    getTraineeById(id: number, originalId: number | null): Trainee | undefined {
-        const typedId = Number(id)
-        return this.trainees.find(trainee => {return (trainee.id === typedId) && typedId !== originalId});
+    private generateSerialNumber(): number {
+        let serialNumber: number;
+        do {
+            serialNumber = Math.floor(Math.random() * 100000000);
+        } while (this.trainees.some(t => t.serialNumber === serialNumber));
+        return serialNumber;
     }
-
-    getUniqueIds(): number[] {
-        return Array.from(new Set(this.trainees.map(trainee => trainee.id)));
-    }
-
-    getUniqueSubjects(): string[] {
-        return Array.from(new Set(this.trainees.map(trainee => trainee.subject)));
-    }
-
 }

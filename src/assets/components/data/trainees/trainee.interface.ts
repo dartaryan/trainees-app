@@ -9,4 +9,5 @@ export interface Trainee {
     city: string;
     country: string;
     zip: number;
+    serialNumber: number;
 }

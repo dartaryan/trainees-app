@@ -40,7 +40,7 @@ export class TraineesTableComponent implements OnInit {
 
     onSelect(trainee: Trainee): void {
         if (!this.isEditMode) {
-            this.selectedTrainee = this.selectedTrainee === trainee ? null : trainee;
+            this.selectedTrainee = this.selectedTrainee?.serialNumber === trainee.serialNumber ? null : trainee;
             this.traineeDataService.selectTrainee(this.selectedTrainee);
         }
     }

@@ -26,9 +26,7 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class TraineeDetailsComponent implements OnInit {
     traineeForm: FormGroup;
-    originalTraineeId: number | null = null;
     isEditMode: boolean = false;
-    idExists = false
     public selectedTrainee: Trainee | null = null;
     traineeFields = [{name: 'id', label: 'ID'}, {name: 'name', label: 'Name'}, {
         name: 'date', label: 'Date'
@@ -43,13 +41,13 @@ export class TraineeDetailsComponent implements OnInit {
             id: ['', [Validators.required, this.validateIdNotZero, this.numericValidator]],
             name: [''],
             date: [''],
-            grade: [''],
+            grade: ['', [Validators.required, this.numericValidator]],  // Added numeric validator
             subject: [''],
             email: [''],
             address: [''],
             city: [''],
             country: [''],
-            zip: ['']
+            zip: ['', [this.numericValidator]],  // Added numeric validator
         });
     }
 
@@ -65,36 +63,30 @@ export class TraineeDetailsComponent implements OnInit {
     }
 
     onEditClick(): void {
-        this.originalTraineeId = this.traineeForm.value.id;
-        this.traineeDataService.setEditMode(true)
+        this.traineeDataService.setEditMode(true);
     }
 
     onSaveClick(): void {
-        const updatedTrainee = this.traineeForm.value as Trainee;
-        if (this.traineeDataService.getTraineeById(updatedTrainee.id, this.originalTraineeId)) {
-            this.idExists = true
-            alert('This ID already exists. Please use a different ID.');
-        } else {
-            this.idExists = false
-            this.traineeDataService.updateTrainee(updatedTrainee, this.originalTraineeId);
-            this.traineeDataService.setEditMode(false)
-            this.originalTraineeId = null;
-            this.traineeForm.reset();
-            this.traineeDataService.removeTrainee(0)
-            this.traineeDataService.selectTrainee(updatedTrainee);
+        let updatedTrainee = this.traineeForm.value as Trainee;
+        updatedTrainee.id = Number(updatedTrainee.id);
+        updatedTrainee.grade = Number(updatedTrainee.grade);
+        updatedTrainee.zip = Number(updatedTrainee.zip);
+        if (this.selectedTrainee) {
+            updatedTrainee.serialNumber = this.selectedTrainee.serialNumber === 0 ? 0 : this.selectedTrainee.serialNumber;
         }
+        this.traineeDataService.updateTrainee(updatedTrainee);
+        this.traineeDataService.setEditMode(false);
+        this.traineeForm.reset();
+        this.traineeDataService.selectTrainee(updatedTrainee);
     }
 
     onCancelClick(): void {
-        const currentTrainee = this.traineeForm.value as Trainee;
-        if (currentTrainee.id === 0) {
-            this.traineeDataService.removeTrainee(currentTrainee.id);
-        }
         this.traineeDataService.selectedTrainee$.subscribe(trainee => {
             trainee && this.traineeForm.patchValue(trainee);
         });
-        this.traineeDataService.setEditMode(false)
+        this.traineeDataService.setEditMode(false);
         this.traineeDataService.removeTrainee(0)
+        this.traineeForm.reset();
     }
 
     validateIdNotZero(control: AbstractControl): ValidationErrors | null {

@@ -1,7 +1,6 @@
-import { Component, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
 import { NgForOf, NgIf } from '@angular/common';
-import { NgApexchartsModule } from 'ng-apexcharts';
 import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
 import { TraineeDataService } from '../../data/trainee-data.service';
 import { Trainee } from '../../data/trainees/trainee.interface';
@@ -11,7 +10,7 @@ import { AnalysisChartService } from '../analysis-chart.service';
 @Component({
     selector: 'app-chart-area',
     standalone: true,
-    imports: [CdkDropList, CdkDrag, NgForOf, NgApexchartsModule, CanvasJSAngularChartsModule, NgIf],
+    imports: [CdkDropList, CdkDrag, NgForOf, CanvasJSAngularChartsModule, NgIf],
     templateUrl: './chart-area.component.html',
     styleUrl: './chart-area.component.scss'
 })

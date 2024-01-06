@@ -10,7 +10,8 @@ export const traineesData: Trainee[] = [{
     address: '31 Oak Avenue',
     city: 'Toronto',
     country: 'USA',
-    zip: 36492
+    zip: 36492,
+    serialNumber: 64688986
 }, {
     id: 112013,
     name: 'Riley Johnson',
@@ -21,7 +22,8 @@ export const traineesData: Trainee[] = [{
     address: '59 Maple Street',
     city: 'Sydney',
     country: 'USA',
-    zip: 37785
+    zip: 37785,
+    serialNumber: 31856618
 }, {
     id: 378144,
     name: 'Quinn Davis',
@@ -32,7 +34,8 @@ export const traineesData: Trainee[] = [{
     address: '49 Pine Lane',
     city: 'Toronto',
     country: 'Australia',
-    zip: 48283
+    zip: 48283,
+    serialNumber: 31491382
 }, {
     id: 200743,
     name: 'Cameron Smith',
@@ -43,7 +46,8 @@ export const traineesData: Trainee[] = [{
     address: '65 Maple Street',
     city: 'Toronto',
     country: 'Australia',
-    zip: 16912
+    zip: 16912,
+    serialNumber: 90023993
 }, {
     id: 537299,
     name: 'Alex Garcia',
@@ -54,7 +58,8 @@ export const traineesData: Trainee[] = [{
     address: '2 Pine Lane',
     city: 'Sydney',
     country: 'Australia',
-    zip: 59368
+    zip: 59368,
+    serialNumber: 19605177
 }, {
     id: 625265,
     name: 'Drew Wilson',
@@ -65,7 +70,8 @@ export const traineesData: Trainee[] = [{
     address: '28 Maple Street',
     city: 'Sydney',
     country: 'USA',
-    zip: 46859
+    zip: 46859,
+    serialNumber: 24260853
 }, {
     id: 863894,
     name: 'Alex Miller',
@@ -76,8 +82,9 @@ export const traineesData: Trainee[] = [{
     address: '24 Elm Road',
     city: 'New York',
     country: 'UK',
-    zip: 25323
-},{
+    zip: 25323,
+    serialNumber: 994814
+}, {
     id: 987654,
     name: 'Taylor Brooks',
     date: '15-02-2024',
@@ -87,77 +94,78 @@ export const traineesData: Trainee[] = [{
     address: '76 Cedar Blvd',
     city: 'Melbourne',
     country: 'Australia',
-    zip: 3000
-},
-    {
-        id: 123456,
-        name: 'Jordan Lee',
-        date: '20-11-2024',
-        grade: 92,
-        subject: 'Physics',
-        email: 'trainee12@example.com',
-        address: '12 Elm Street',
-        city: 'London',
-        country: 'UK',
-        zip: 56789
-    },
-    {
-        id: 112013,
-        name: 'Riley Johnson',
-        date: '03-03-2024',
-        grade: 74,
-        subject: 'English',
-        email: 'trainee2@example.com',
-        address: '59 Maple Street',
-        city: 'Sydney',
-        country: 'USA',
-        zip: 37785
-    },
-    {
-        id: 564738,
-        name: 'Morgan Bailey',
-        date: '17-08-2024',
-        grade: 91,
-        subject: 'Chemistry',
-        email: 'trainee13@example.com',
-        address: '90 Birch Road',
-        city: 'Toronto',
-        country: 'Canada',
-        zip: 87654
-    },
-    {
-        id: 200743,
-        name: 'Cameron Smith',
-        date: '12-12-2024',
-        grade: 68,
-        subject: 'Philosophy',
-        email: 'trainee7@example.com',
-        address: '65 Maple Street',
-        city: 'Toronto',
-        country: 'Australia',
-        zip: 16912
-    },
-    {
-        id: 101010,
-        name: 'Harper Murphy',
-        date: '25-07-2024',
-        grade: 82,
-        subject: 'Art History',
-        email: 'trainee14@example.com',
-        address: '33 Pine Street',
-        city: 'Boston',
-        country: 'USA',
-        zip: 21082
-    },
-    {
-        id: 202020,
-        name: 'Sam Kennedy',
-        date: '11-09-2024',
-        grade: 77,
-        subject: 'Music Theory',
-        email: 'trainee15@example.com',
-        address: '48 Oak Avenue',
-        city: 'San Francisco',
-        country: 'USA',
-        zip: 94102
-    }];
+    zip: 3000,
+    serialNumber: 25794058
+}, {
+    id: 123456,
+    name: 'Jordan Lee',
+    date: '20-11-2024',
+    grade: 92,
+    subject: 'Physics',
+    email: 'trainee12@example.com',
+    address: '12 Elm Street',
+    city: 'London',
+    country: 'UK',
+    zip: 56789,
+    serialNumber: 63128076
+}, {
+    id: 112013,
+    name: 'Riley Johnson',
+    date: '03-03-2024',
+    grade: 74,
+    subject: 'English',
+    email: 'trainee2@example.com',
+    address: '59 Maple Street',
+    city: 'Sydney',
+    country: 'USA',
+    zip: 37785,
+    serialNumber: 51213793
+}, {
+    id: 564738,
+    name: 'Morgan Bailey',
+    date: '17-08-2024',
+    grade: 91,
+    subject: 'Chemistry',
+    email: 'trainee13@example.com',
+    address: '90 Birch Road',
+    city: 'Toronto',
+    country: 'Canada',
+    zip: 87654,
+    serialNumber: 35402470
+}, {
+    id: 200743,
+    name: 'Cameron Smith',
+    date: '12-12-2024',
+    grade: 68,
+    subject: 'Philosophy',
+    email: 'trainee7@example.com',
+    address: '65 Maple Street',
+    city: 'Toronto',
+    country: 'Australia',
+    zip: 16912,
+    serialNumber: 46174272
+}, {
+    id: 101010,
+    name: 'Harper Murphy',
+    date: '25-07-2024',
+    grade: 82,
+    subject: 'Art History',
+    email: 'trainee14@example.com',
+    address: '33 Pine Street',
+    city: 'Boston',
+    country: 'USA',
+    zip: 21082,
+    serialNumber: 11303784
+}, {
+    id: 202020,
+    name: 'Sam Kennedy',
+    date: '11-09-2024',
+    grade: 77,
+    subject: 'Music Theory',
+    email: 'trainee15@example.com',
+    address: '48 Oak Avenue',
+    city: 'San Francisco',
+    country: 'USA',
+    zip: 94102,
+    serialNumber: 80288918
+}]

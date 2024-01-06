@@ -33,11 +33,11 @@ export class DataComponent implements OnInit {
             address: '--',
             city: '--',
             country: '--',
-            zip: 0
+            zip: 0,
+            serialNumber: 0
         };
 
         this.traineeDataService.addTrainee(newTrainee);
-        this.traineeDataService.selectTrainee(newTrainee);
         this.traineeDataService.setEditMode(true);
     }
 }

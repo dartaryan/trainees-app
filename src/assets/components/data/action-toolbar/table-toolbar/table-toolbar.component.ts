@@ -35,7 +35,7 @@ export class TableToolbarComponent implements OnInit {
 
     onRemoveClick(): void {
         if (this.selectedTrainee) {
-            this.traineeDataService.removeTrainee(this.selectedTrainee.id);
+            this.traineeDataService.removeTrainee(this.selectedTrainee.serialNumber);
         }
     }
 }

@@ -16,12 +16,17 @@
                     <mat-label>{{ field.label | titlecase }}</mat-label>
                     <input matInput [formControlName]="field.name">
                     <mat-error class="error-msg"
-                               *ngIf="field.name === 'id' && traineeForm.get('id')?.touched && traineeForm.get('id')?.errors?.['invalidId']">
-                        ID cannot be zero or left blank.
+                               *ngIf="field.name === 'id' && traineeForm.get('id')?.touched">
+                        <span *ngIf="traineeForm.get('id')?.errors?.['invalidId']">ID cannot be zero or left blank.</span>
+                        <span *ngIf="traineeForm.get('id')?.errors?.['nonNumeric']">ID must be a number.</span>
                     </mat-error>
                     <mat-error class="error-msg"
-                               *ngIf="field.name === 'id' && traineeForm.get('id')?.touched && traineeForm.get('id')?.errors?.['nonNumeric']">
-                        ID must be a number.
+                               *ngIf="field.name === 'grade' && traineeForm.get('grade')?.touched && traineeForm.get('grade')?.errors?.['nonNumeric']">
+                        Grade must be a number.
+                    </mat-error>
+                    <mat-error class="error-msg"
+                               *ngIf="field.name === 'zip' && traineeForm.get('zip')?.touched && traineeForm.get('zip')?.errors?.['nonNumeric']">
+                        Zip must be a number.
                     </mat-error>
                 </mat-form-field>
             </div>
