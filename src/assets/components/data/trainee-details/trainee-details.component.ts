@@ -80,6 +80,7 @@ export class TraineeDetailsComponent implements OnInit {
             this.traineeDataService.setEditMode(false)
             this.originalTraineeId = null;
             this.traineeForm.reset();
+            this.traineeDataService.removeTrainee(0)
             this.traineeDataService.selectTrainee(updatedTrainee);
         }
     }
@@ -93,6 +94,7 @@ export class TraineeDetailsComponent implements OnInit {
             trainee && this.traineeForm.patchValue(trainee);
         });
         this.traineeDataService.setEditMode(false)
+        this.traineeDataService.removeTrainee(0)
     }
 
     validateIdNotZero(control: AbstractControl): ValidationErrors | null {
