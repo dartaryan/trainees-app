@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
 import { NgForOf, NgIf } from '@angular/common';
 import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
 import { TraineeDataService } from '../../data/trainee-data.service';
 import { Trainee } from '../../data/trainees/trainee.interface';
 import { AnalysisChartService } from '../analysis-chart.service';
+import { Subject, takeUntil } from 'rxjs';
 
 
 @Component({
@@ -14,14 +15,8 @@ import { AnalysisChartService } from '../analysis-chart.service';
     templateUrl: './chart-area.component.html',
     styleUrl: './chart-area.component.scss'
 })
-export class ChartAreaComponent implements OnInit {
-    selectedTraineeIds: number[] = [];
-    selectedSubjects: string[] = [];
-    trainees: Trainee[] = []
-    chart1Options: any;
-    chart2Options: any;
-    chart3Options: any;
-    hiddenChartOptions = {
+export class ChartAreaComponent implements OnInit, OnDestroy {
+    public hiddenChartOptions = {
         theme: 'dark2', title: {
             text: 'Placeholder Title',
             verticalAlign: 'center',
@@ -31,40 +26,49 @@ export class ChartAreaComponent implements OnInit {
             margin: 0,
         },
     }
-    hiddenChartStyles = {
+    public hiddenChartStyles = {
         height: '11.5em'
     }
-    charts = [{id: 1, styles: {height: '21em'}, options: {title: {text: '',}}}, {
+    public charts = [{id: 1, styles: {height: '21em'}, options: {title: {text: '',}}}, {
         id: 2, styles: {height: '21em'}, options: {title: {text: '',}}
     }, {id: 3, styles: {height: '21em'}, options: {title: {text: '',}}}];
+    private unsubscribe$ = new Subject<void>();
+    private selectedTraineeIds: number[] = [];
+    private selectedSubjects: string[] = [];
+    private trainees: Trainee[] = []
+    private chart1Options: any;
+    private chart2Options: any;
+    private chart3Options: any;
 
     constructor(private traineeDataService: TraineeDataService, private analysisChartService: AnalysisChartService) {
     }
 
     ngOnInit(): void {
-        this.traineeDataService.trainees$.subscribe(trainees => {
-            this.trainees = trainees
+        this.traineeDataService.trainees$.pipe(takeUntil(this.unsubscribe$)).subscribe(trainees => {
+            this.trainees = trainees;
             this.updateCharts();
             this.updateChartVisibility();
         });
-        this.analysisChartService.selectedIds$.subscribe(ids => {
+
+        this.analysisChartService.selectedIds$.pipe(takeUntil(this.unsubscribe$)).subscribe(ids => {
             this.selectedTraineeIds = ids;
             this.updateCharts();
             this.updateChartVisibility();
         });
-        this.analysisChartService.selectedSubjects$.subscribe(subjects => {
+
+        this.analysisChartService.selectedSubjects$.pipe(takeUntil(this.unsubscribe$)).subscribe(subjects => {
             this.selectedSubjects = subjects;
             this.updateCharts();
             this.updateChartVisibility();
         });
     }
 
-    ngOnChanges(): void {
-        // this.updateCharts();
-        // this.updateChartVisibility();
+    ngOnDestroy(): void {
+        this.unsubscribe$.next();
+        this.unsubscribe$.complete();
     }
 
-    drop(event: CdkDragDrop<string[]>): void {
+    public drop(event: CdkDragDrop<string[]>): void {
         moveItemInArray(this.charts, event.previousIndex, event.currentIndex);
     }
 

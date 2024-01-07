@@ -1,8 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { TraineeDataService } from '../../trainee-data.service';
-import { Trainee } from '../../trainees/trainee.interface';
+import { TraineeDataService } from '../trainee-data.service';
+import { Trainee } from '../trainees/trainee.interface';
 import { AsyncPipe, NgIf } from '@angular/common';
 
 @Component({
@@ -15,7 +15,7 @@ import { AsyncPipe, NgIf } from '@angular/common';
 export class TableToolbarComponent implements OnInit {
     @Output() addTrainee = new EventEmitter<void>();
     public selectedTrainee: Trainee | null = null;
-    isEditMode$ = this.traineeDataService.isEditMode$;
+    public isEditMode$ = this.traineeDataService.isEditMode$;
 
     constructor(private traineeDataService: TraineeDataService) {}
 
@@ -25,15 +25,15 @@ export class TableToolbarComponent implements OnInit {
         });
     }
 
-    applyFilter(filter: string): void {
+    public applyFilter(filter: string): void {
         this.traineeDataService.filterTrainees(filter);
     }
 
-    onAddClick(): void {
+    public onAddClick(): void {
         this.addTrainee.emit();
     }
 
-    onRemoveClick(): void {
+    public onRemoveClick(): void {
         if (this.selectedTrainee) {
             this.traineeDataService.removeTrainee(this.selectedTrainee.serialNumber);
         }

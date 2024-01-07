@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FilterSectionComponent } from './filter-section.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('FilterSectionComponent', () => {
   let component: FilterSectionComponent;
@@ -8,7 +9,7 @@ describe('FilterSectionComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FilterSectionComponent]
+      imports: [FilterSectionComponent,BrowserAnimationsModule]
     })
     .compileComponents();
     

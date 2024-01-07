@@ -8,8 +8,7 @@ export class TraineeFilteringService {
 
     constructor() { }
 
-
-    filterTrainees(trainees: Trainee[], filter: string): Trainee[] {
+    public filterTrainees(trainees: Trainee[], filter: string): Trainee[] {
         if (!filter) {
             return trainees;
         }

@@ -18,7 +18,7 @@ export class TraineeDataService {
 
     constructor(private filteringService: TraineeFilteringService) { }
 
-    filterTrainees(filter?: string): void {
+    public filterTrainees(filter?: string): void {
         if (!filter) {
             this.traineesSubject.next(this.trainees);
         } else {
@@ -27,11 +27,11 @@ export class TraineeDataService {
         }
     }
 
-    selectTrainee(trainee: Trainee | null): void {
+    public selectTrainee(trainee: Trainee | null): void {
         this.selectedTraineeSubject.next(trainee);
     }
 
-    updateTrainee(updatedTrainee: Trainee): void {
+    public updateTrainee(updatedTrainee: Trainee): void {
         if (updatedTrainee.serialNumber === 0) {
             updatedTrainee.serialNumber = this.generateSerialNumber();
             this.trainees = [updatedTrainee, ...this.trainees];
@@ -45,17 +45,17 @@ export class TraineeDataService {
         this.traineesSubject.next([...this.trainees]);
     }
 
-    setEditMode(isEditMode: boolean): void {
+    public setEditMode(isEditMode: boolean): void {
         this.isEditModeSubject.next(isEditMode);
     }
 
-    addTrainee(newTrainee: Trainee): void {
+    public addTrainee(newTrainee: Trainee): void {
         this.trainees = [newTrainee, ...this.trainees];
         this.traineesSubject.next(this.trainees);
         this.selectTrainee(newTrainee)
     }
 
-    removeTrainee(serialNumber: number): void {
+    public removeTrainee(serialNumber: number): void {
         this.trainees = this.trainees.filter(t => t.serialNumber !== serialNumber);
         this.traineesSubject.next(this.trainees);
         this.selectTrainee(null)

@@ -9,33 +9,43 @@ import { FilterState } from './filter-section/filter/filter-state.interface';
     providedIn: 'root'
 })
 export class GradesMonitorService {
-    filteredTraineeStatuses$: Observable<TraineeStatus[]>;
-    private currentFilterState: FilterState = {
-        ids: [], names: [], states: {passed: false, failed: false}
-    };
+    private currentFilterState: FilterState = {ids: [], names: [], states: {passed: false, failed: false} };
     private selectedIdsSubject = new BehaviorSubject<number[]>([]);
-    selectedIds$ = this.selectedIdsSubject.asObservable();
     private selectedNamesSubject = new BehaviorSubject<string[]>([]);
-    selectedNames$ = this.selectedNamesSubject.asObservable();
-    private selectedStatesSubject = new BehaviorSubject<{ passed: boolean; failed: boolean }>({
-        passed: false, failed: false
-    });
-    selectedStates$ = this.selectedStatesSubject.asObservable();
+    private selectedStatesSubject = new BehaviorSubject<{ passed: boolean; failed: boolean }>({  passed: false, failed: false});
     private traineeStatusesSubject = new BehaviorSubject<TraineeStatus[]>([]);
+
+    selectedIds$ = this.selectedIdsSubject.asObservable();
+    selectedNames$ = this.selectedNamesSubject.asObservable();
+    selectedStates$ = this.selectedStatesSubject.asObservable();
     traineeStatuses$ = this.traineeStatusesSubject.asObservable();
+    filteredTraineeStatuses$: Observable<TraineeStatus[]>;
 
     constructor(private traineeDataService: TraineeDataService) {
         this.traineeDataService.trainees$.subscribe(trainees => {
             this.updateTraineeStatuses(trainees);
         });
-        this.filteredTraineeStatuses$ = combineLatest([this.traineeStatuses$, this.selectedIds$, this.selectedNames$, this.selectedStates$]).pipe(map(([statuses, selectedIds, selectedNames, selectedStates]) => {
-            return statuses.filter(status => {
-                const idMatch = selectedIds.length === 0 || selectedIds.includes(status.id);
-                const nameMatch = selectedNames.length === 0 || selectedNames.some(name => status.name.toLowerCase().includes(name.toLowerCase()));
-                const stateMatch = (!selectedStates.passed && !selectedStates.failed) || (selectedStates.passed && status.passed) || (selectedStates.failed && !status.passed);
-                return idMatch && nameMatch && stateMatch;
-            });
-        }));
+
+        this.filteredTraineeStatuses$ = combineLatest([
+            this.traineeStatuses$,
+            this.selectedIds$,
+            this.selectedNames$,
+            this.selectedStates$
+        ]).pipe(
+            map(([statuses, selectedIds, selectedNames, selectedStates]) => {
+                return statuses.filter(status => this.isStatusMatchingFilters(status, selectedIds, selectedNames, selectedStates));
+            })
+        );
+    }
+
+    private isStatusMatchingFilters(status: TraineeStatus, ids: number[], names: string[], states: { passed: boolean; failed: boolean }): boolean {
+        const idMatch = ids.length === 0 || ids.includes(status.id);
+        const nameMatch = names.length === 0 || names.some(name => status.name.toLowerCase().includes(name.toLowerCase()));
+        const stateMatch = (!states.passed && !states.failed) ||
+                           (states.passed && status.passed) ||
+                           (states.failed && !status.passed);
+
+        return idMatch && nameMatch && stateMatch;
     }
 
     setSelectedIds(ids: number[]): void {
@@ -53,7 +63,7 @@ export class GradesMonitorService {
         this.selectedStatesSubject.next(states);
     }
 
-    getCurrentFilterState() {
+    getCurrentFilterState(): FilterState {
         return this.currentFilterState;
     }
 
@@ -76,17 +86,19 @@ export class GradesMonitorService {
             }
         });
 
-        const allStatuses = Array.from(traineeStatusMap).map(([id, data]) => {
-            const averageGrade = data.totalGrade / data.testCount;
+        this.traineeStatusesSubject.next(this.calculateTraineeStatuses(traineeStatusMap));
+    }
+
+    private calculateTraineeStatuses(statusMap: Map<number, { name: string, totalGrade: number, testCount: number }>): TraineeStatus[] {
+        return Array.from(statusMap.entries()).map(([id, { name, totalGrade, testCount }]) => {
+            const averageGrade = totalGrade / testCount;
             return {
-                id: id,
-                name: data.name,
-                averageGrade: averageGrade,
-                numberOfExams: data.testCount,
+                id,
+                name,
+                averageGrade,
+                numberOfExams: testCount,
                 passed: averageGrade >= 65
             };
         });
-
-        this.traineeStatusesSubject.next(allStatuses);
     }
 }

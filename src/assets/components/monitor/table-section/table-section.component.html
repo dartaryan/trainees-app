@@ -30,7 +30,6 @@
 
     <div *ngIf="dataSource.data.length > 0; else noResults" class="table-body-scroll">
         <table mat-table [dataSource]="dataSource">
-            <!-- Repeating the same column definitions for body rows -->
             <ng-container matColumnDef="id">
                 <td style="text-align: center; width: 25%;" mat-cell *matCellDef="let trainee"> {{ trainee.id }}</td>
             </ng-container>

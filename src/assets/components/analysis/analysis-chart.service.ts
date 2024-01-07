@@ -2,30 +2,29 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class AnalysisChartService {
-  private selectedIdsSubject = new BehaviorSubject<number[]>([]);
-  private selectedSubjectsSubject = new BehaviorSubject<string[]>([]);
+    private selectedIdsSubject = new BehaviorSubject<number[]>([]);
+    public selectedIds$ = this.selectedIdsSubject.asObservable();
+    private selectedSubjectsSubject = new BehaviorSubject<string[]>([]);
+    public selectedSubjects$ = this.selectedSubjectsSubject.asObservable();
 
-  selectedIds$ = this.selectedIdsSubject.asObservable();
-  selectedSubjects$ = this.selectedSubjectsSubject.asObservable();
+    constructor() {}
 
-  constructor() {}
+    public setSelectedIds(ids: number[]): void {
+        this.selectedIdsSubject.next(ids);
+    }
 
-  setSelectedIds(ids: number[]): void {
-    this.selectedIdsSubject.next(ids);
-  }
+    public setSelectedSubjects(subjects: string[]): void {
+        this.selectedSubjectsSubject.next(subjects);
+    }
 
-  setSelectedSubjects(subjects: string[]): void {
-    this.selectedSubjectsSubject.next(subjects);
-  }
+    public getSelectedIds(): number[] {
+        return this.selectedIdsSubject.getValue();
+    }
 
-  getSelectedIds(): number[] {
-    return this.selectedIdsSubject.getValue();
-  }
-
-  getSelectedSubjects(): string[] {
-    return this.selectedSubjectsSubject.getValue();
-  }
+    public getSelectedSubjects(): string[] {
+        return this.selectedSubjectsSubject.getValue();
+    }
 }

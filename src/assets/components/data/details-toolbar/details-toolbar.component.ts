@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { AsyncPipe, NgIf } from '@angular/common';
-import { TraineeDataService } from '../../trainee-data.service';
+import { TraineeDataService } from '../trainee-data.service';
 
 @Component({
     selector: 'app-details-toolbar',
@@ -20,16 +20,16 @@ export class DetailsToolbarComponent {
 
     constructor(private traineeDataService: TraineeDataService) {}
 
-    onEditClick(): void {
+    public onEditClick(): void {
         this.traineeDataService.setEditMode(true)
         this.edit.emit();
     }
 
-    onSaveClick(): void {
+    public onSaveClick(): void {
         this.save.emit();
     }
 
-    onCancelClick(): void {
+    public onCancelClick(): void {
         this.traineeDataService.setEditMode(false)
         this.cancel.emit();
     }

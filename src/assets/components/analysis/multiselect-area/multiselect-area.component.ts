@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { AsyncPipe, NgForOf } from '@angular/common';
 import { TraineeDataService } from '../../data/trainee-data.service';
 import { FormsModule } from '@angular/forms';
 import { AnalysisChartService } from '../analysis-chart.service';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
     selector: 'app-multiselect-area',
@@ -13,31 +14,34 @@ import { AnalysisChartService } from '../analysis-chart.service';
     templateUrl: './multiselect-area.component.html',
     styleUrl: './multiselect-area.component.scss'
 })
-export class MultiselectAreaComponent implements OnInit {
-  traineeIds: number[] = [];
-  subjects: string[] = [];
-  currentSelectedIds: number[] = [];
-  currentSelectedSubjects: string[] = [];
+export class MultiselectAreaComponent implements OnInit, OnDestroy {
+    public traineeIds: number[] = [];
+    public subjects: string[] = [];
+    public currentSelectedIds: number[] = [];
+    public currentSelectedSubjects: string[] = [];
+    private unsubscribe$ = new Subject<void>();
 
-  constructor(
-    private traineeDataService: TraineeDataService,
-    private analysisChartService: AnalysisChartService
-  ) {}
+    constructor(private traineeDataService: TraineeDataService, private analysisChartService: AnalysisChartService) {}
 
-  ngOnInit() {
-    this.traineeDataService.trainees$.subscribe(trainees => {
-      this.traineeIds = trainees.map(trainee => trainee.id);
-      this.subjects = [...new Set(trainees.map(trainee => trainee.subject))];
-      this.currentSelectedIds = this.analysisChartService.getSelectedIds();
-      this.currentSelectedSubjects = this.analysisChartService.getSelectedSubjects();
-    });
-  }
+    ngOnInit() {
+        this.traineeDataService.trainees$.pipe(takeUntil(this.unsubscribe$)).subscribe(trainees => {
+            this.traineeIds = trainees.map(trainee => trainee.id);
+            this.subjects = [...new Set(trainees.map(trainee => trainee.subject))];
+            this.currentSelectedIds = this.analysisChartService.getSelectedIds();
+            this.currentSelectedSubjects = this.analysisChartService.getSelectedSubjects();
+        });
+    }
 
-  onIdSelectionChange(event: MatSelectChange) {
-    this.analysisChartService.setSelectedIds(event.value);
-  }
+    ngOnDestroy(): void {
+        this.unsubscribe$.next();
+        this.unsubscribe$.complete();
+    }
 
-  onSubjectSelectionChange(event: MatSelectChange) {
-    this.analysisChartService.setSelectedSubjects(event.value);
-  }
+    public onIdSelectionChange(event: MatSelectChange) {
+        this.analysisChartService.setSelectedIds(event.value);
+    }
+
+    public onSubjectSelectionChange(event: MatSelectChange) {
+        this.analysisChartService.setSelectedSubjects(event.value);
+    }
 }

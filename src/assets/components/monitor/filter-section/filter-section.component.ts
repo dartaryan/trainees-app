@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TraineeDataService } from '../../data/trainee-data.service';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { NgForOf } from '@angular/common';
 import { MatSlideToggleChange, MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { GradesMonitorService } from '../grades-monitor.service';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
     selector: 'app-filter-section',
@@ -13,20 +14,21 @@ import { GradesMonitorService } from '../grades-monitor.service';
     templateUrl: './filter-section.component.html',
     styleUrl: './filter-section.component.scss'
 })
-export class FilterSectionComponent implements OnInit {
-    traineeIds: number[] = [];
-    selectedTraineeIds: number[] = [];
-    nameFilter: string = '';
-    showPassed: boolean = true;
-    showFailed: boolean = true;
+export class FilterSectionComponent implements OnInit, OnDestroy {
+    public traineeIds: number[] = [];
+    public selectedTraineeIds: number[] = [];
+    public nameFilter: string = '';
+    public showPassed: boolean = true;
+    public showFailed: boolean = true;
+    private unsubscribe$ = new Subject<void>();
 
-    constructor(private traineeDataService: TraineeDataService, private gradesMonitorService: GradesMonitorService) {
-        this.traineeDataService.trainees$.subscribe(trainees => {
-            this.traineeIds = trainees.map(trainee => trainee.id);
-        });
-    }
+    constructor(private traineeDataService: TraineeDataService, private gradesMonitorService: GradesMonitorService) {}
 
     ngOnInit() {
+        this.traineeDataService.trainees$.pipe(takeUntil(this.unsubscribe$)).subscribe(trainees => {
+            this.traineeIds = trainees.map(trainee => trainee.id);
+        });
+
         const filterState = this.gradesMonitorService.getCurrentFilterState();
         this.selectedTraineeIds = filterState.ids
         this.nameFilter = filterState.names.join(', ');
@@ -34,22 +36,27 @@ export class FilterSectionComponent implements OnInit {
         this.showFailed = filterState.states.failed;
     }
 
-    onIdSelectionChange(event: MatSelectChange): void {
+    ngOnDestroy(): void {
+        this.unsubscribe$.next();
+        this.unsubscribe$.complete();
+    }
+
+    public onIdSelectionChange(event: MatSelectChange): void {
         this.gradesMonitorService.setSelectedIds(event.value);
     }
 
-    onNameFilterChange(event: Event): void {
+    public onNameFilterChange(event: Event): void {
         const inputElement = event.target as HTMLInputElement;
         this.nameFilter = inputElement.value;
         this.gradesMonitorService.setSelectedNames(this.nameFilter ? [this.nameFilter] : []);
     }
 
-    onTogglePassedChange(event: MatSlideToggleChange): void {
+    public onTogglePassedChange(event: MatSlideToggleChange): void {
         this.showPassed = event.checked;
         this.gradesMonitorService.setSelectedStates({passed: this.showPassed, failed: this.showFailed});
     }
 
-    onToggleFailedChange(event: MatSlideToggleChange): void {
+    public onToggleFailedChange(event: MatSlideToggleChange): void {
         this.showFailed = event.checked;
         this.gradesMonitorService.setSelectedStates({passed: this.showPassed, failed: this.showFailed});
     }
