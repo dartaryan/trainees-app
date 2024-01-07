@@ -1,27 +1,64 @@
-# TraineesApp
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.9.
+---
 
-## Development server
+# Trainee Performance Analysis Web Application
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Overview
+This Single Page Application (SPA) is designed for the visualization and management of trainee test results. It leverages Angular and Angular Material Design to offer a dynamic and user-friendly interface for analyzing trainee performances in various training programs.
 
-## Code scaffolding
+## Features
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Data Management Page
+- **Advanced Filtering:** Sort data by ID, grade, and date with support for operators like '>', '<', and ':'.
+- **Interactive Grid:** Display trainee data with selectable rows for detailed views.
+- **Details Panel:** Editable fields for trainee data management.
+- **CRUD Operations:** Add, edit, and remove trainees as needed.
+- **Pagination:** Navigate through data efficiently.
 
-## Build
+### Analysis Page
+- **Customizable Filters:** Multi-select options for trainee IDs and subjects.
+- **Interactive Charts:** Visualize data per trainee and per subject.
+- **Drag-and-Drop:** Reorganize charts for a customized dashboard.
+- **Expandable Chart Options:** Additional chart views for enhanced analysis.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### Monitor Page
+- **Performance Monitoring:** Categorize trainees as 'Passed' or 'Not Passed' based on average scores.
+- **Comprehensive Filters:** Filter by ID, name, and state (passed/failed).
+- **Responsive Grid:** Displays results in an organized format.
 
-## Running unit tests
+## Design and Usability
+Utilizes Angular Material Design.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Getting Started
 
-## Running end-to-end tests
+### Prerequisites
+- Node.js
+- Angular CLI
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+### Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/dartaryan/trainees-app.git
+   ```
+2. Navigate to the project directory:
+   ```bash
+    cd trainees-app
+   ```
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
+4. Run the application:
+   ```bash
+   ng serve
+   ```
+5. Open your browser and navigate to `http://localhost:4200/`.
 
-## Further help
+## Contributing
+Contributions are welcome. Please open an issue first to discuss what you would like to change.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
+
+## Contact
+For any inquiries or contributions, please reach out to `benakiva1991@gmail.com`.
