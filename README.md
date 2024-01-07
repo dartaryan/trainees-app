@@ -1,7 +1,7 @@
 
 ---
 
-# Trainee Performance Analysis Web Application
+# 🎓 Trainee Performance Analysis Web Application 🎓
 
 ## Overview
 This Single Page Application (SPA) is designed for the visualization and management of trainee test results. It leverages Angular and Angular Material Design to offer a dynamic and user-friendly interface for analyzing trainee performances in various training programs.
