@@ -1,0 +1,21 @@
+<div class="filter-section">
+    <mat-form-field>
+        <mat-label>Trainee IDs</mat-label>
+        <mat-select multiple (selectionChange)="onIdSelectionChange($event)" [value]="selectedTraineeIds">
+            <mat-option *ngFor="let id of traineeIds" [value]="id">{{ id }}</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+        <input matInput placeholder="Filter by Name" (input)="onNameFilterChange($event)" [value]="nameFilter">
+    </mat-form-field>
+
+    <div class="toggles">
+        <mat-slide-toggle [checked]="showPassed" (change)="onTogglePassedChange($event)">
+            Show Passed
+        </mat-slide-toggle>
+        <mat-slide-toggle color="primary" [checked]="showFailed" (change)="onToggleFailedChange($event)">
+            Show Failed
+        </mat-slide-toggle>
+    </div>
+</div>

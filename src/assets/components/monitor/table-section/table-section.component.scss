@@ -1,0 +1,87 @@
+.table-body-scroll {
+  max-height: calc(100vh - 25em);
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 1rem;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: rgba(83, 83, 83, 0.37);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: darkcyan;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #00c5c5;
+  }
+}
+
+mat-paginator {
+  background-color: #424242;
+  color: white;
+
+  .mat-paginator-range-actions {
+    font-weight: 500;
+    font-size: small;
+  }
+}
+
+.no-results-content {
+  background-color: #424242;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  font-size: 1.2rem;
+
+  img {
+    max-width: 30%;
+    height: auto;
+    margin-bottom: 16px;
+  }
+
+  p {
+    color: white;
+  }
+}
+
+.passed-row {
+  background-color: darkcyan;
+  animation: blink-passed 4s infinite;
+
+  &:hover {
+    background-color: darken(darkcyan, 10%);
+  }
+}
+
+.failed-row {
+  background-color: #c2185b;
+  animation: blink-failed 2s infinite;
+
+  &:hover {
+    background-color: darken(#c2185b, 10%);
+  }
+}
+
+@keyframes blink-passed {
+  0%, 100% {
+    background-color: darken(darkcyan, 9%);
+  }
+  50% {
+    background-color: darken(darkcyan, 12%);
+  }
+}
+
+@keyframes blink-failed {
+  0%, 100% {
+    background-color: darken(#c2185b, 12%);
+  }
+  50% {
+    background-color: darken(#c2185b, 9%);
+  }
+}

@@ -26,17 +26,17 @@ export class ChartAreaComponent implements OnInit {
             text: 'Placeholder Title',
             verticalAlign: 'center',
             horizontalAlign: 'center',
-            fontSize: 45,
+            fontSize: '40',
             padding: 0,
             margin: 0,
         },
     }
     hiddenChartStyles = {
-        height: '120px'
+        height: '11.5em'
     }
-    charts = [{id: 1, styles: {height: '340px'}, options: {title: {text: '',}}}, {
-        id: 2, styles: {height: '340px'}, options: {title: {text: '',}}
-    }, {id: 3, styles: {height: '340px'}, options: {title: {text: '',}}}];
+    charts = [{id: 1, styles: {height: '21em'}, options: {title: {text: '',}}}, {
+        id: 2, styles: {height: '21em'}, options: {title: {text: '',}}
+    }, {id: 3, styles: {height: '21em'}, options: {title: {text: '',}}}];
 
     constructor(private traineeDataService: TraineeDataService, private analysisChartService: AnalysisChartService) {
     }
@@ -97,7 +97,7 @@ export class ChartAreaComponent implements OnInit {
                 return {x: new Date(record.date), y: record.grade};
             });
             return {
-                type: 'line', showInLegend: true, name: `Trainee ${ id }`, dataPoints: dataPoints
+                type: 'line', showInLegend: true, name: `${ id }`, dataPoints: dataPoints
             };
         });
         return {
@@ -115,7 +115,7 @@ export class ChartAreaComponent implements OnInit {
         const dataPoints = selectedIds.map(id => {
             const traineeRecords = this.trainees.filter(trainee => trainee.id === id);
             const averageGrade = traineeRecords.reduce((sum, record) => sum + record.grade, 0) / traineeRecords.length;
-            return {label: `Trainee ${ id }`, y: averageGrade};
+            return {label: `${ id }`, y: averageGrade};
         });
 
         return {

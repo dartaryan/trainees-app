@@ -1,0 +1,72 @@
+<ng-container>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <!-- ID Column -->
+        <ng-container matColumnDef="id">
+            <th style="text-align: center; width: 25%;" mat-header-cell *matHeaderCellDef> ID</th>
+            <td mat-cell *matCellDef="let trainee"> {{ trainee.id }}</td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+            <th style="text-align: center; width: 25%;" mat-header-cell *matHeaderCellDef> Name</th>
+            <td mat-cell *matCellDef="let trainee"> {{ trainee.name }}</td>
+        </ng-container>
+
+        <!-- Average Grade Column -->
+        <ng-container matColumnDef="average">
+            <th style="text-align: center; width: 25%;" mat-header-cell *matHeaderCellDef> Average Grade</th>
+            <td mat-cell *matCellDef="let trainee"> {{ trainee.averageGrade }}</td>
+        </ng-container>
+
+        <!-- Number of Exams Column -->
+        <ng-container matColumnDef="exams">
+            <th style="text-align: center; width: 25%;" mat-header-cell *matHeaderCellDef> Number of Exams</th>
+            <td mat-cell *matCellDef="let trainee"> {{ trainee.numberOfExams }}</td>
+        </ng-container>
+
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    </table>
+
+    <div *ngIf="dataSource.data.length > 0; else noResults" class="table-body-scroll">
+        <table mat-table [dataSource]="dataSource">
+            <!-- Repeating the same column definitions for body rows -->
+            <ng-container matColumnDef="id">
+                <td style="text-align: center; width: 25%;" mat-cell *matCellDef="let trainee"> {{ trainee.id }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="name">
+                <td style="text-align: center; width: 25%;" mat-cell *matCellDef="let trainee"> {{ trainee.name }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="average">
+                <td style="text-align: center; width: 25%;" mat-cell
+                    *matCellDef="let trainee"> {{ trainee.averageGrade }}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="exams">
+                <td style="text-align: center; width: 25%;" mat-cell
+                    *matCellDef="let trainee"> {{ trainee.numberOfExams }}
+                </td>
+            </ng-container>
+
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                [class]="{'passed-row': row.passed, 'failed-row': !row.passed}"></tr>
+
+        </table>
+    </div>
+
+    <mat-paginator *ngIf="dataSource.data.length > 10"
+                   [length]="dataSource.data.length"
+                   [pageSize]="10"
+                   aria-label="Select page">
+    </mat-paginator>
+</ng-container>
+
+<ng-template #noResults>
+    <div class="no-results-content">
+        <img src="assets/graphics/trainee-studying-boy.svg" alt="No results"/>
+        <p>Oops! No trainees found. Try adjusting your filter.</p>
+    </div>
+</ng-template>

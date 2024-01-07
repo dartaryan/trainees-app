@@ -1,3 +1,25 @@
 :host {
   height: calc(100vh - 15em);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  max-height: calc(100vh);
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 1rem;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: rgba(83, 83, 83, 0.37);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: darkcyan;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #00c5c5;
+  }
 }
