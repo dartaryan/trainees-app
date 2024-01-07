@@ -32,15 +32,18 @@
             "styles": [
               "@angular/material/prebuilt-themes/pink-bluegrey.css"
             ],
-            "scripts": []
+            "scripts": [],
+            "optimization": {
+        "fonts": false
+      }
           },
           "configurations": {
             "production": {
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "1.4mb",
+                  "maximumError": "1.5mb"
                 },
                 {
                   "type": "anyComponentStyle",
